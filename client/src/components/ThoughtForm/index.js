@@ -1,7 +1,22 @@
 import React, { useState } from 'react';
-
+import { useMutation } from '@apollo/react-hooks';
+import { ADD_THOUGHT } from '../../utils/mutations';
+import {QUERY_THOUGHTS, QUERY_ME} from '../../utils/queries';
 
 const ThoughtForm = () => {
+  const [addThought, { error }] = useMutation(ADD_THOUGHT, {
+    update(cache, { data: { addThought } }) {
+      // read what's currently in the cache
+      const { thoughts } = cache.readQuery({ query: QUERY_THOUGHTS });
+  
+      // prepend the newest thought to the front of the array
+      cache.writeQuery({
+        query: QUERY_THOUGHTS,
+        data: { thoughts: [addThought, ...thoughts] }
+      });
+    }
+  });
+
   const [thoughtText, setText] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
   
@@ -16,14 +31,26 @@ const ThoughtForm = () => {
   // HandleFormSubmit onSubmit form:
   const handleFormSubmit = async event => {
     event.preventDefault();
-    setText('');
-    setCharacterCount(0);
+
+    try {
+      // add thought to database
+      await addThought({
+        variables: { thoughtText }
+      });
+
+      // clear form value
+      setText('');
+      setCharacterCount(0);
+    } catch (e) {
+      console.error(e);
+    }
   };
-  
+
   return (
     <div>
-      <p className={`m-0 ${characterCount === 280 ? 'text-error' : ''}`}>
+      <p className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}>
         Character Count: {characterCount}/280
+        {error && <span className="ml-2">Something went wrong...</span>}
       </p>
       <form
         className="flex-row justify-center justify-space-between-md align-stretch"
