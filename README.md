@@ -15,3 +15,8 @@ A social media application called Deep Thoughts is built with MERN stack. Users 
 - Use the Apollo Client library to consume GraphQL APIs on the front end.
 - Use Route and Switch components to set up client-side routing.
 - Implement login functionality and user-based navigation in React.
+
+## Link to the site:
+https://ryan7998-deepthoughts.herokuapp.com
+
+For Demo purpose login with (email:ryan7998@gmail.com, password: user1234)
