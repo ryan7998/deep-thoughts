@@ -14,6 +14,9 @@ const Home = () => {
   const thoughts = data?.thoughts || [];
   const loggedIn = Auth.loggedIn();
 
+  console.log('userData: ', userData);
+  // return(<div></div>)
+
   return (
     <main>
       <div className='flex-row justify-space-between'>

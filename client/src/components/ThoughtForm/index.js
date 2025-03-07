@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
+
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_THOUGHT } from '../../utils/mutations';
 import {QUERY_THOUGHTS, QUERY_ME} from '../../utils/queries';
@@ -73,9 +77,12 @@ const ThoughtForm = () => {
           className="form-input col-12 col-md-9"
           onChange={handleChange}
         ></textarea>
-        <button className="btn col-12 col-md-3" type="submit">
+        <Stack spacing={2} direction="row">
+          <Button variant="outlined" type="submit">Submit</Button>
+        </Stack>
+        {/* <button className="btn col-12 col-md-3" type="submit">
           Submit
-        </button>
+        </button> */}
       </form>
     </div>
   );
