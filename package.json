@@ -23,12 +23,13 @@
   },
   "homepage": "https://github.com/ryan7998/deep-thoughts#readme",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "if-env": "^1.0.4"
   },
   "devDependencies": {
     "concurrently": "^6.0.2"
   },
   "engines": {
-  "node": "16.x"
+    "node": "16.x"
   }
 }
