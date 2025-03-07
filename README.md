@@ -21,6 +21,5 @@ A social media application called Deep Thoughts is built with MERN stack. Users 
 
 ## Link to the site:
 
-https://deepthougts-fb5fa1bf4ca4.herokuapp.com/
-
+https://deepthoughts.onthis.website
 For Demo purpose login with (email:ryan7998@gmail.com, password: user1234)
