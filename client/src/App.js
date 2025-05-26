@@ -1,8 +1,10 @@
 import React from 'react';
 
-import {ApolloProvider} from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
+// import {ApolloProvider} from '@apollo/react-hooks';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+// import ApolloClient from 'apollo-boost';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -14,16 +16,11 @@ import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 
 const client = new ApolloClient({
-  request: operation => {
-    const token = localStorage.getItem('id_token');
-
-    operation.setContext({
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
-    });
-  },
-  uri: '/graphql'
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+  headers: {
+    authorization: localStorage.getItem('id_token') ? `Bearer ${localStorage.getItem('id_token')}` : ''
+  }
 });
 
 function App() {
