@@ -6,6 +6,7 @@ import Auth from '../utils/auth';
 import FriendList from '../components/FriendList';
 import ThoughtForm from '../components/ThoughtForm';
 import { Link } from 'react-router-dom';
+import Loader from '../components/ui/Loader';
 
 const Home = () => {
   // use useQuery hook to make query request
@@ -26,27 +27,15 @@ const Home = () => {
             <div className="bg-white rounded-lg shadow p-6 flex flex-col items-center">
               <div className="w-24 h-24 rounded-full bg-gray-200 mb-2" />
               <h2 className="font-bold text-lg mb-1">{userData?.me?.username || 'User'}</h2>
-              <p className="text-sm text-gray-500 mb-4">UI/UX Designer</p>
+              <p className="text-sm text-gray-500 mb-4">{userData?.me?.email}</p>
               <div className="flex space-x-8 mb-4">
                 <div className="text-center">
                   <div className="font-bold text-xl">{userData?.me?.friendCount || 'User'}</div>
                   <div className="text-xs text-gray-400">Connections</div>
                 </div>
-                <div className="text-center">
-                  <div className="font-bold text-xl">85</div>
-                  <div className="text-xs text-gray-400">Views</div>
-                </div>
               </div>
               <button className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">View my profile</button>
             </div>
-            {/* FriendList (if logged in) */}
-            {loggedIn && userData?.me && (
-              <FriendList
-                username={userData.me.username}
-                friendCount={userData.me.friendCount}
-                friends={userData.me.friends}
-              />
-            )}
           </aside>
 
           {/* Center/Main Content */}
@@ -60,7 +49,7 @@ const Home = () => {
             {/* Thought List */}
             <div className="bg-white rounded-lg shadow p-6">
               {loading ? (
-                <div>Loading...</div>
+                <Loader text="Loading thoughts..." />
               ) : (
                 <ThoughtList thoughts={thoughts} title="Recent Thoughts" />
               )}
@@ -69,24 +58,6 @@ const Home = () => {
 
           {/* Right Sidebar */}
           <aside className="space-y-6">
-            {/* People You May Know */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold mb-4">People you may know</h3>
-              <ul className="space-y-2">
-                <li className="flex items-center justify-between">
-                  <span>Sophia Lee</span>
-                  <button className="text-blue-600 hover:underline text-sm">Connect</button>
-                </li>
-                <li className="flex items-center justify-between">
-                  <span>John Doe</span>
-                  <button className="text-blue-600 hover:underline text-sm">Connect</button>
-                </li>
-                <li className="flex items-center justify-between">
-                  <span>Julia Cox</span>
-                  <button className="text-blue-600 hover:underline text-sm">Connect</button>
-                </li>
-              </ul>
-            </div>
             {/* Friends */}
             {loggedIn && (
               <div className="bg-white rounded-lg shadow p-6">
@@ -109,20 +80,6 @@ const Home = () => {
                 </div>
               </div>
             )}
-            {/* Jobs */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="font-semibold mb-4">Jobs</h3>
-              <ul className="space-y-2">
-                <li>
-                  <div className="font-medium">Product Director</div>
-                  <div className="text-xs text-gray-400">Spotify Inc.</div>
-                </li>
-                <li>
-                  <div className="font-medium">.NET Developer</div>
-                  <div className="text-xs text-gray-400">Invision</div>
-                </li>
-              </ul>
-            </div>
           </aside>
         </div>
       </div>
