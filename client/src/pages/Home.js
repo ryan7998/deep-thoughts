@@ -5,45 +5,126 @@ import ThoughtList from '../components/ThoughtList';
 import Auth from '../utils/auth';
 import FriendList from '../components/FriendList';
 import ThoughtForm from '../components/ThoughtForm';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   // use useQuery hook to make query request
   const { loading, data } = useQuery(QUERY_THOUGHTS);
   // use object destructuring to extract `data` from the `useQuery` Hook's response and rename it `userData` to be more descriptive
   const { data: userData } = useQuery(QUERY_ME_BASIC);
+  console.log('userData: ', userData);
   const thoughts = data?.thoughts || [];
   const loggedIn = Auth.loggedIn();
 
-  console.log('userData: ', userData);
-  // return(<div></div>)
-
   return (
-    <main>
-      <div className='flex-row justify-space-between'>
-        
-        {/* Render Thought Form if logged in: */}
-        {loggedIn && (
-          <div className="col-12 mb-3">
-            <ThoughtForm />
-          </div>
-        )}
+    <main className="min-h-screen bg-gray-100 py-8">
+      <div className="max-w-7xl mx-auto px-2 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Sidebar */}
+          <aside className="space-y-6">
+            {/* Profile Card */}
+            <div className="bg-white rounded-lg shadow p-6 flex flex-col items-center">
+              <div className="w-24 h-24 rounded-full bg-gray-200 mb-2" />
+              <h2 className="font-bold text-lg mb-1">{userData?.me?.username || 'User'}</h2>
+              <p className="text-sm text-gray-500 mb-4">UI/UX Designer</p>
+              <div className="flex space-x-8 mb-4">
+                <div className="text-center">
+                  <div className="font-bold text-xl">{userData?.me?.friendCount || 'User'}</div>
+                  <div className="text-xs text-gray-400">Connections</div>
+                </div>
+                <div className="text-center">
+                  <div className="font-bold text-xl">85</div>
+                  <div className="text-xs text-gray-400">Views</div>
+                </div>
+              </div>
+              <button className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">View my profile</button>
+            </div>
+            {/* FriendList (if logged in) */}
+            {loggedIn && userData?.me && (
+              <FriendList
+                username={userData.me.username}
+                friendCount={userData.me.friendCount}
+                friends={userData.me.friends}
+              />
+            )}
+          </aside>
 
-        <div className={`col-12 mb-3 ${loggedIn && 'col-lg-8'}`}>
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <ThoughtList thoughts={thoughts} title="Some Feed for Thought(s)..." />
-          )}
+          {/* Center/Main Content */}
+          <section className="space-y-6">
+            {/* Thought Form (if logged in) */}
+            {loggedIn && (
+              <div className="bg-white rounded-lg shadow p-6 mb-4">
+                <ThoughtForm />
+              </div>
+            )}
+            {/* Thought List */}
+            <div className="bg-white rounded-lg shadow p-6">
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                <ThoughtList thoughts={thoughts} title="Recent Thoughts" />
+              )}
+            </div>
+          </section>
+
+          {/* Right Sidebar */}
+          <aside className="space-y-6">
+            {/* People You May Know */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="font-semibold mb-4">People you may know</h3>
+              <ul className="space-y-2">
+                <li className="flex items-center justify-between">
+                  <span>Sophia Lee</span>
+                  <button className="text-blue-600 hover:underline text-sm">Connect</button>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span>John Doe</span>
+                  <button className="text-blue-600 hover:underline text-sm">Connect</button>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span>Julia Cox</span>
+                  <button className="text-blue-600 hover:underline text-sm">Connect</button>
+                </li>
+              </ul>
+            </div>
+            {/* Friends */}
+            {loggedIn && (
+              <div className="bg-white rounded-lg shadow p-6">
+                <h3 className="font-semibold mb-4">Friends</h3>
+                <div className="grid grid-cols-3 gap-2">
+                  {userData?.me?.friends && userData.me.friends.length > 0 ? (
+                    userData.me.friends.slice(0, 6).map(friend => (
+                      <Link to={`/profile/${friend.username}`} key={friend._id} title={friend.username} className="flex flex-col items-center">
+                        <img
+                          src={`https://ui-avatars.com/api/?name=${encodeURIComponent(friend.username)}&background=4975d1&color=fff&size=64`}
+                          alt={friend.username}
+                          className="w-16 h-16 rounded object-cover hover:shadow-lg transition"
+                        />
+                        <span className="mt-1 text-xs text-gray-700 truncate w-16 text-center">{friend.username}</span>
+                      </Link>
+                    ))
+                  ) : (
+                    <div className="col-span-3 text-center text-gray-400 text-sm">No friends yet</div>
+                  )}
+                </div>
+              </div>
+            )}
+            {/* Jobs */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="font-semibold mb-4">Jobs</h3>
+              <ul className="space-y-2">
+                <li>
+                  <div className="font-medium">Product Director</div>
+                  <div className="text-xs text-gray-400">Spotify Inc.</div>
+                </li>
+                <li>
+                  <div className="font-medium">.NET Developer</div>
+                  <div className="text-xs text-gray-400">Invision</div>
+                </li>
+              </ul>
+            </div>
+          </aside>
         </div>
-        {loggedIn && userData ? (
-          <div className="col-12 col-lg-3 mb-3">
-            <FriendList
-              username={userData.me.username}
-              friendCount={userData.me.friendCount}
-              friends={userData.me.friends}
-            />
-          </div>
-        ) : null}
       </div>
     </main>
   );
