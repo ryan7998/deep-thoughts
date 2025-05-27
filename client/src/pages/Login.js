@@ -9,7 +9,7 @@ import { LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
 import { Redirect } from 'react-router-dom';
 
 const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: 'ryan7998@gmail.com', password: 'user1234' });
   const [login, { error, loading }] = useMutation(LOGIN_USER);
   const [remember, setRemember] = useState(false);
   const [redirect, setRedirect] = useState(false);
@@ -50,7 +50,7 @@ const Login = (props) => {
       <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-lg p-8 flex flex-col items-center">
         {/* Logo/Icon */}
         <div className="w-12 h-12 bg-blue-500 rounded flex items-center justify-center mb-4">
-          <span className="text-white text-2xl">&#9813;</span>
+          <span className="text-white text-2xl">DT</span>
         </div>
         {/* Title & Subtitle */}
         <h2 className="text-2xl font-bold mb-1 text-center">Welcome Back</h2>
@@ -81,6 +81,12 @@ const Login = (props) => {
                 icon={<LockClosedIcon className="w-5 h-5" />}
                 autoComplete="current-password"
               />
+              {/* Demo Credentials Notice */}
+              <div className="w-full mb-4 p-3 bg-blue-50 border border-blue-200 rounded text-blue-800 text-sm text-center">
+                <strong>Demo Credentials:</strong><br />
+                Email: <span className="font-mono">ryan7998@gmail.com</span><br />
+                Password: <span className="font-mono">user1234</span>
+              </div>
               <div className="flex items-center mb-4">
                 <input
                   id="remember"
@@ -102,7 +108,7 @@ const Login = (props) => {
             </div>
             <div className="flex justify-between w-full text-sm">
               <a href="#" className="text-blue-500 hover:underline">Forgot password?</a>
-              <span>New to Olink? <a href="#" className="text-blue-500 hover:underline">Join now</a></span>
+              <span>New to Deep Thoughts? <a href="/signup" className="text-blue-500 hover:underline">Join now</a></span>
             </div>
           </>
         )}

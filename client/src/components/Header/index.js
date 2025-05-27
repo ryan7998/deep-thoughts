@@ -21,20 +21,12 @@ const Header = () => {
       <div className="flex-1 mx-8 max-w-xl">
         <input
           type="text"
-          placeholder="Search people, jobs & more..."
+          placeholder="Search people (coming soon)..."
           className="w-full px-4 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
       {/* Right: Menu Items & User */}
       <div className="flex items-center space-x-6">
-        <Link to="#" className="text-gray-200 hover:text-white">Jobs</Link>
-        <Link to="#" className="text-gray-200 hover:text-white">Connection</Link>
-        <Link to="#" className="text-gray-200 hover:text-white">Pages</Link>
-        {/* Notification Icon (placeholder) */}
-        <button className="relative">
-          <span className="material-icons text-gray-200">notifications</span>
-          <span className="absolute top-0 right-0 inline-block w-2 h-2 bg-red-500 rounded-full"></span>
-        </button>
         {/* Auth logic for user/profile */}
         {Auth.loggedIn() ? (
           <>

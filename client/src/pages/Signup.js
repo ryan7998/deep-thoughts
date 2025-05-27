@@ -48,11 +48,11 @@ const Signup = () => {
       <div className="w-full max-w-md mx-auto bg-white rounded-lg shadow-lg p-8 flex flex-col items-center">
         {/* Logo/Icon */}
         <div className="w-12 h-12 bg-blue-500 rounded flex items-center justify-center mb-4">
-          <span className="text-white text-2xl">&#9813;</span>
+          <span className="text-white text-2xl">DT</span>
         </div>
         {/* Title & Subtitle */}
-        <h2 className="text-2xl font-bold mb-1 text-center">Join Olink</h2>
-        <p className="text-gray-500 text-center mb-6 text-sm">Make the most of your professional life</p>
+        <h2 className="text-2xl font-bold mb-1 text-center">Join Deep Thoughts</h2>
+        <p className="text-gray-500 text-center mb-6 text-sm">Make the most of your social life</p>
         {/* Loader or Signup Form */}
         {loading ? (
           <Loader text="Signing up..." />
@@ -115,7 +115,7 @@ const Signup = () => {
             </div>
             <div className="flex justify-between w-full text-sm">
               <a href="#" className="text-blue-500 hover:underline">Forgot password?</a>
-              <span>Already on Olink? <a href="#" className="text-blue-500 hover:underline">Sign in</a></span>
+              <span>Already on Deep Thoughts? <a href="/login" className="text-blue-500 hover:underline">Sign in</a></span>
             </div>
           </>
         )}

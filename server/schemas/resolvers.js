@@ -84,15 +84,19 @@ const resolvers = {
       },
       addFriend: async (parent, { friendId }, context) => {
         if (context.user) {
-          const updatedUser = await User.findOneAndUpdate(
+          // Add friendId to current user's friends
+          await User.findOneAndUpdate(
             { _id: context.user._id },
-            { $addToSet: { friends: friendId } },
-            { new: true }
-          ).populate('friends');
-      
-          return updatedUser;
+            { $addToSet: { friends: friendId } }
+          );
+          // Add current user to friend's friends
+          await User.findOneAndUpdate(
+            { _id: friendId },
+            { $addToSet: { friends: context.user._id } }
+          );
+          // Return the updated user with populated friends
+          return User.findOne({ _id: context.user._id }).populate('friends');
         }
-      
         throw new AuthenticationError('You need to be logged in!');
       }
     }
