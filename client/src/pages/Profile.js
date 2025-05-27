@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, useParams, Link } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import ThoughtList from '../components/ThoughtList';
 import FriendGrid from '../components/FriendList/FriendGrid';
