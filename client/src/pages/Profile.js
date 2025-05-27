@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import ThoughtList from '../components/ThoughtList';
 import FriendList from '../components/FriendList';
 import ThoughtForm from '../components/ThoughtForm';
