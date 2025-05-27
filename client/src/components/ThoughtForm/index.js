@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-
-
 import { useMutation } from '@apollo/client';
 import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
