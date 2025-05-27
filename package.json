@@ -8,8 +8,7 @@
     "start:prod": "cd server && npm start",
     "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "seed": "cd server && npm run seed",
-    "heroku-postbuild": "cd client && npm run build"
+    "seed": "cd server && npm run seed"
   },
   "repository": {
     "type": "git",
@@ -23,13 +22,14 @@
   },
   "homepage": "https://github.com/ryan7998/deep-thoughts#readme",
   "dependencies": {
-    "dotenv": "^16.4.7",
+    "@apollo/client": "^3.13.8",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.5",
+    "graphql": "^15.10.1",
     "if-env": "^1.0.4"
   },
   "devDependencies": {
     "concurrently": "^6.0.2"
-  },
-  "engines": {
-    "node": "16.x"
   }
 }
