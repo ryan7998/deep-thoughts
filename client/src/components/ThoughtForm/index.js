@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { ADD_THOUGHT } from '../../utils/mutations';
-import {QUERY_THOUGHTS, QUERY_ME} from '../../utils/queries';
+import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
+import Button from '../ui/Button';
 
 const ThoughtForm = () => {
 
@@ -42,14 +43,8 @@ const ThoughtForm = () => {
   // HandleFormSubmit onSubmit form:
   const handleFormSubmit = async event => {
     event.preventDefault();
-
     try {
-      // add thought to database
-      await addThought({
-        variables: { thoughtText }
-      });
-
-      // clear form value
+      await addThought({ variables: { thoughtText } });
       setText('');
       setCharacterCount(0);
     } catch (e) {
@@ -59,23 +54,18 @@ const ThoughtForm = () => {
 
   return (
     <div>
-      <p className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}>
-        Character Count: {characterCount}/280
-        {error && <span className="ml-2">Something went wrong...</span>}
-      </p>
-      <form
-        className="flex-row justify-center justify-space-between-md align-stretch"
-        onSubmit={handleFormSubmit}
-      >
+      <form className="flex flex-col w-full" onSubmit={handleFormSubmit}>
         <textarea
           placeholder="Here's a new thought..."
           value={thoughtText}
-          className="form-input col-12 col-md-9"
+          className="form-input w-full min-h-[80px] max-w-full rounded border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none p-3 text-gray-900 resize-none mb-2"
           onChange={handleChange}
         ></textarea>
-        <button className="btn col-12 col-md-3" type="submit">
-          Submit
-        </button>
+        <Button type="submit" variant="primary" className="">Submit</Button>
+        <div className={`mt-2 text-xs text-right ${characterCount === 280 || error ? 'text-red-500' : 'text-gray-400'}`}>
+          Character Count: {characterCount}/280
+          {error && <span className="ml-2">Something went wrong...</span>}
+        </div>
       </form>
     </div>
   );
