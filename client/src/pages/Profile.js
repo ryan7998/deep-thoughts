@@ -9,6 +9,7 @@ import Auth from '../utils/auth';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import Loader from '../components/ui/Loader';
 import Button from '../components/ui/Button';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const { username: userParam } = useParams();

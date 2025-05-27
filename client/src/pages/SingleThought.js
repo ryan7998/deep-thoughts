@@ -6,6 +6,7 @@ import Auth from '../utils/auth';
 import ReactionList from '../components/ReactionList';
 import ReactionForm from '../components/ReactionForm';
 import Loader from '../components/ui/Loader';
+import { Link } from 'react-router-dom';
 
 const SingleThought = props => {
   const { id: thoughtId } = useParams();
