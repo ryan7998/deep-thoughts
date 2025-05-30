@@ -35,7 +35,7 @@ const ReactionForm = ({ thoughtId }) => {
     const [addReaction, { error }] = useMutation(ADD_REACTION);
 
     return (
-        <div>
+        <div className='mt-5'>
             <form className="flex flex-col w-full" onSubmit={handleFormSubmit}>
                 <textarea
                     placeholder="Leave a reaction to this thought..."

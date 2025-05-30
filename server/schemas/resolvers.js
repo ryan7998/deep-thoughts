@@ -98,6 +98,32 @@ const resolvers = {
           return User.findOne({ _id: context.user._id }).populate('friends');
         }
         throw new AuthenticationError('You need to be logged in!');
+      },
+      removeThought: async (parent, { thoughtId }, context) => {
+        if (context.user) {
+          const thought = await Thought.findOne({ _id: thoughtId });
+          
+          if (!thought) {
+            throw new Error('Thought not found');
+          }
+          
+          // Check if the thought belongs to the user
+          if (thought.username !== context.user.username) {
+            throw new AuthenticationError('You can only delete your own thoughts!');
+          }
+          
+          // Remove the thought
+          await Thought.findOneAndDelete({ _id: thoughtId });
+          
+          // Remove the thought reference from the user's thoughts array
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { thoughts: thoughtId } }
+          );
+          
+          return thought;
+        }
+        throw new AuthenticationError('You need to be logged in!');
       }
     }
   };

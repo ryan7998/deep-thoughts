@@ -67,3 +67,14 @@ export const ADD_REACTION = gql`
     }
   }
 `;
+
+export const REMOVE_THOUGHT = gql`
+  mutation removeThought($thoughtId: ID!) {
+    removeThought(thoughtId: $thoughtId) {
+      _id
+      thoughtText
+      username
+      createdAt
+    }
+  }
+`;

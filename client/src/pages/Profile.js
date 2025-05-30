@@ -108,7 +108,11 @@ const Profile = () => {
         {/* Thoughts */}
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-lg shadow p-6">
-            <ThoughtList thoughts={user.thoughts} title={`${Auth.getProfile().data.username === user?.username ? 'Your' : `${user.username}'s`} thoughts...`} />
+            <ThoughtList 
+              thoughts={user.thoughts} 
+              title={`${Auth.getProfile().data.username === user?.username ? 'Your' : `${user.username}'s`} thoughts...`} 
+              showDeleteButton={isOwnProfile}
+            />
             {/* Render Thought form conditionally in own profile: */}
             <div className="mt-6">{isOwnProfile && <ThoughtForm />}</div>
           </div>

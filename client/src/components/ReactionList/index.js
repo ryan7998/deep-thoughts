@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ReactionList = ({ reactions }) => {
   if (!reactions || reactions.length === 0) return null;
   return (
-    <div className="mb-6">
+    <div className="my-5">
       <h4 className="text-lg font-semibold mb-4 text-gray-700">Comments</h4>
       <div className="space-y-4">
         {reactions.map(reaction => (
